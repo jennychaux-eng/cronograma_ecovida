@@ -736,15 +736,9 @@ with st.form(
     with col2:
 
 
-        actividad = st.selectbox(
+        actividad = st.text_input(
             "Actividad",
-            [
-                "Actividad 1",
-                "Actividad 2",
-                "Actividad 3",
-                "Actividad 4",
-                "Actividad 5"
-            ]
+            placeholder="Ej: Monitoreo de cultivos, inspección de predio..."
         )
 
 
