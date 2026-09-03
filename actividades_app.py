@@ -621,8 +621,17 @@ for estudiante in estudiantes:
 
                 with columnas[posicion]:
 
+                    color_style = {
+                        "Daniela": "background-color: #DFF3FF; border: 1px solid #B7E3F9; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
+                        "Salome": "background-color: #FFE4EC; border: 1px solid #F6C2D4; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
+                        "Gabriela": "background-color: #FFF7CC; border: 1px solid #F2E39F; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
+                    }[estudiante]
+
                     st.markdown(
-                        f"**📅 {fecha_formateada}**"
+                        f"<div style='{color_style}'>"
+                        f"<div><strong>📅 {fecha_formateada}</strong></div>"
+                        f"<div style='margin-top: 10px;'>",
+                        unsafe_allow_html=True,
                     )
 
                     for actividad in actividades_fecha:
@@ -640,7 +649,7 @@ for estudiante in estudiantes:
                     if observaciones:
                         st.caption(f"📝 {' | '.join(observaciones)}")
 
-                    st.markdown("---")
+                    st.markdown("</div>")
 
 
 # ============================================================
