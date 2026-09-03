@@ -627,18 +627,10 @@ for estudiante in estudiantes:
                         "Gabriela": "background-color: #FFF7CC; border: 1px solid #F2E39F; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
                     }[estudiante]
 
-                    st.markdown(
-                        f"<div style='{color_style}'>"
-                        f"<div><strong>📅 {fecha_formateada}</strong></div>"
-                        f"<div style='margin-top: 10px;'>",
-                        unsafe_allow_html=True,
+                    actividades_html = "".join(
+                        f"<div style='margin-top: 8px;'><strong>{'✅' if actividad['estado'] == 'Completada' else '▫️'}</strong> {actividad['actividad']}</div>"
+                        for actividad in actividades_fecha
                     )
-
-                    for actividad in actividades_fecha:
-                        icono = "✅" if actividad["estado"] == "Completada" else "▫️"
-                        st.write(f"{icono} {actividad['actividad']}")
-
-                    st.write(f"📍 {predios_texto}")
 
                     observaciones = [
                         actividad["observaciones"]
@@ -646,10 +638,23 @@ for estudiante in estudiantes:
                         if actividad.get("observaciones")
                     ]
 
+                    observaciones_html = ""
                     if observaciones:
-                        st.caption(f"📝 {' | '.join(observaciones)}")
+                        observaciones_html = (
+                            "<div style='margin-top: 8px; color: #6B7280; font-size: 12px; font-style: italic;'>"
+                            f"📝 {' | '.join(observaciones)}"
+                            "</div>"
+                        )
 
-                    st.markdown("</div>")
+                    st.markdown(
+                        f"<div style='{color_style}'>"
+                        f"<div><strong>📅 {fecha_formateada}</strong></div>"
+                        f"<div style='margin-top: 10px;'>{actividades_html}</div>"
+                        f"<div style='margin-top: 12px;'><strong>📍</strong> {predios_texto}</div>"
+                        f"{observaciones_html}"
+                        "</div>",
+                        unsafe_allow_html=True,
+                    )
 
 
 # ============================================================
