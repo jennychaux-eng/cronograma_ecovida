@@ -418,34 +418,11 @@ actividades_completadas = [
 completadas = len(actividades_completadas)
 
 
-# Próximas visitas
-
-hoy = date.today()
-
-fechas_futuras = set()
-
-for actividad in actividades:
-
-    fecha_actividad = date.fromisoformat(
-        actividad["fecha"]
-    )
-
-    if fecha_actividad >= hoy:
-
-        fechas_futuras.add(
-            fecha_actividad
-        )
-
-proximas_visitas = len(
-    fechas_futuras
-)
-
-
 # ============================================================
 # TARJETAS DEL RESUMEN
 # ============================================================
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(
@@ -466,13 +443,6 @@ with col3:
         label="Actividades completadas",
         value=completadas,
         delta="OK"
-    )
-
-with col4:
-    st.metric(
-        label="Próximas visitas",
-        value=proximas_visitas,
-        delta="Desde hoy"
     )
 
 
