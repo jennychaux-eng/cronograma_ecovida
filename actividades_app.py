@@ -73,29 +73,48 @@ st.markdown(
        TARJETAS DEL RESUMEN
        ===================================================== */
 
-    .metric-card {
-        background-color: #FFFFFF;
-        padding: 22px 15px;
-        border-radius: 16px;
-        border: 1px solid #E5E7EB;
-        text-align: center;
-        min-height: 120px;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
     }
 
-    .metric-title {
+    .metric-box {
+        background-color: #FFFFFF;
+        border: 1px solid #E5E7EB;
+        border-radius: 18px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .metric-label {
         color: #6B7280;
         font-size: 13px;
-        font-weight: 600;
-        text-transform: uppercase;
+        font-weight: 700;
         letter-spacing: 0.4px;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
     }
 
-    .metric-value {
+    .metric-number {
         color: #111827;
-        font-size: 34px;
-        font-weight: 700;
-        margin-top: 8px;
+        font-size: clamp(28px, 2.5vw, 42px);
+        font-weight: 800;
+        line-height: 1.1;
+    }
+
+    .metric-delta {
+        color: #4B5563;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 0.5rem;
     }
 
 
@@ -401,35 +420,36 @@ proximas_visitas = len(
 # TARJETAS DEL RESUMEN
 # ============================================================
 
-col1, col2, col3, col4 = st.columns(4)
+st.markdown(
+    f"""
+    <div class="metric-grid">
+        <div class="metric-box">
+            <div class="metric-label">Actividades programadas</div>
+            <div class="metric-number">{total_actividades}</div>
+            <div class="metric-delta">Total</div>
+        </div>
 
-with col1:
-    st.metric(
-        label="Actividades programadas",
-        value=total_actividades,
-        delta="Total"
-    )
+        <div class="metric-box">
+            <div class="metric-label">Actividades pendientes</div>
+            <div class="metric-number">{pendientes}</div>
+            <div class="metric-delta">Por atender</div>
+        </div>
 
-with col2:
-    st.metric(
-        label="Actividades pendientes",
-        value=pendientes,
-        delta="Por atender"
-    )
+        <div class="metric-box">
+            <div class="metric-label">Actividades completadas</div>
+            <div class="metric-number">{completadas}</div>
+            <div class="metric-delta">OK</div>
+        </div>
 
-with col3:
-    st.metric(
-        label="Actividades completadas",
-        value=completadas,
-        delta="OK"
-    )
-
-with col4:
-    st.metric(
-        label="Próximas visitas",
-        value=proximas_visitas,
-        delta="Desde hoy"
-    )
+        <div class="metric-box">
+            <div class="metric-label">Próximas visitas</div>
+            <div class="metric-number">{proximas_visitas}</div>
+            <div class="metric-delta">Desde hoy</div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
