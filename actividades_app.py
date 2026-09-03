@@ -9,11 +9,10 @@ from collections import defaultdict
 
 st.set_page_config(
     page_title="CRONOGRAMA",
-    page_icon="🌱",
+    page_icon="🌳",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
 
 # ============================================================
 # CONEXIÓN CON SUPABASE
@@ -486,7 +485,13 @@ for estudiante in estudiantes:
     # CONTENEDOR DEL ESTUDIANTE
     # ========================================================
 
-    st.markdown(f"### 👤 {estudiante}")
+     emoji_por_estudiante = {
+        "Daniela": "🌱",
+        "Salomé": "🦋",
+        "Gabriela": "💧"
+    }
+
+    st.markdown(f"### {emoji_por_estudiante[estudiante]} {estudiante}")
 
 
     # ========================================================
