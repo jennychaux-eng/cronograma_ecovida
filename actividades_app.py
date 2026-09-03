@@ -485,7 +485,7 @@ for estudiante in estudiantes:
     # CONTENEDOR DEL ESTUDIANTE
     # ========================================================
 
-     emoji_por_estudiante = {
+    emoji_por_estudiante = {
         "Daniela": "🌱",
         "Salomé": "🦋",
         "Gabriela": "💧"
