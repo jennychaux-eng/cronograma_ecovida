@@ -445,36 +445,35 @@ proximas_visitas = len(
 # TARJETAS DEL RESUMEN
 # ============================================================
 
-st.markdown(
-    f"""
-    <div class="metric-grid">
-        <div class="metric-box">
-            <div class="metric-label">Actividades programadas</div>
-            <div class="metric-number">{total_actividades}</div>
-            <div class="metric-delta">Total</div>
-        </div>
+col1, col2, col3, col4 = st.columns(4)
 
-        <div class="metric-box">
-            <div class="metric-label">Actividades pendientes</div>
-            <div class="metric-number">{pendientes}</div>
-            <div class="metric-delta">Por atender</div>
-        </div>
+with col1:
+    st.metric(
+        label="Actividades programadas",
+        value=total_actividades,
+        delta="Total"
+    )
 
-        <div class="metric-box">
-            <div class="metric-label">Actividades completadas</div>
-            <div class="metric-number">{completadas}</div>
-            <div class="metric-delta">OK</div>
-        </div>
+with col2:
+    st.metric(
+        label="Actividades pendientes",
+        value=pendientes,
+        delta="Por atender"
+    )
 
-        <div class="metric-box">
-            <div class="metric-label">Próximas visitas</div>
-            <div class="metric-number">{proximas_visitas}</div>
-            <div class="metric-delta">Desde hoy</div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+with col3:
+    st.metric(
+        label="Actividades completadas",
+        value=completadas,
+        delta="OK"
+    )
+
+with col4:
+    st.metric(
+        label="Próximas visitas",
+        value=proximas_visitas,
+        delta="Desde hoy"
+    )
 
 
 # ============================================================
