@@ -757,170 +757,96 @@ st.subheader("⚙️ Gestión de actividades")
 
 if actividades:
 
+    estudiante_seleccionado = st.selectbox(
+        "Selecciona estudiante",
+        ["Daniela", "Salome", "Gabriela"],
+        index=0
+    )
 
-    for actividad in actividades:
+    actividades_filtradas = [
+        actividad
+        for actividad in actividades
+        if actividad["estudiante"] == estudiante_seleccionado
+    ]
 
+    if not actividades_filtradas:
+        st.info(f"No hay actividades registradas para {estudiante_seleccionado}.")
 
-        # ====================================================
-        # FECHA
-        # ====================================================
+    else:
+        for actividad in actividades_filtradas:
 
-        fecha_obj = date.fromisoformat(
-            actividad["fecha"]
-        )
-
-
-        fecha_formateada = fecha_obj.strftime(
-            "%d/%m/%Y"
-        )
-
-
-        # ====================================================
-        # COLUMNAS
-        # ====================================================
-
-        col1, col2, col3, col4 = st.columns(
-            [2, 2, 3, 1]
-        )
-
-
-        # ====================================================
-        # ESTUDIANTE
-        # ====================================================
-
-        with col1:
-
-            st.write(
-                f"**{actividad['estudiante']}**"
+            fecha_obj = date.fromisoformat(
+                actividad["fecha"]
             )
 
-            st.caption(
-                fecha_formateada
+            fecha_formateada = fecha_obj.strftime(
+                "%d/%m/%Y"
             )
 
-
-        # ====================================================
-        # PREDIO
-        # ====================================================
-
-        with col2:
-
-            st.write(
-                f"📍 {actividad['predio']}"
+            col1, col2, col3, col4 = st.columns(
+                [2, 2, 3, 1]
             )
 
-
-        # ====================================================
-        # ACTIVIDAD
-        # ====================================================
-
-        with col3:
-
-            st.write(
-                actividad["actividad"]
-            )
-
-
-            if actividad.get(
-                "observaciones"
-            ):
-
+            with col1:
+                st.write(
+                    f"**{actividad['estudiante']}**"
+                )
                 st.caption(
-                    actividad["observaciones"]
+                    fecha_formateada
                 )
 
-
-        # ====================================================
-        # ACCIONES
-        # ====================================================
-
-        with col4:
-
-
-            # -----------------------------------------------
-            # CAMBIAR ESTADO
-            # -----------------------------------------------
-
-            if actividad["estado"] == "Pendiente":
-
-
-                if st.button(
-
-                    "✅",
-
-                    key=f"complete_{actividad['id']}",
-
-                    help="Marcar como completada"
-
-                ):
-
-
-                    cambiar_estado(
-
-                        actividad["id"],
-
-                        "Completada"
-
-                    )
-
-
-                    st.rerun()
-
-
-            else:
-
-
-                if st.button(
-
-                    "↩️",
-
-                    key=f"pending_{actividad['id']}",
-
-                    help="Marcar como pendiente"
-
-                ):
-
-
-                    cambiar_estado(
-
-                        actividad["id"],
-
-                        "Pendiente"
-
-                    )
-
-
-                    st.rerun()
-
-
-            # -----------------------------------------------
-            # ELIMINAR
-            # -----------------------------------------------
-
-            if st.button(
-
-                "🗑️",
-
-                key=f"delete_{actividad['id']}",
-
-                help="Eliminar actividad"
-
-            ):
-
-
-                eliminar_actividad(
-                    actividad["id"]
+            with col2:
+                st.write(
+                    f"📍 {actividad['predio']}"
                 )
 
+            with col3:
+                st.write(
+                    actividad["actividad"]
+                )
 
-                st.rerun()
+                if actividad.get("observaciones"):
+                    st.caption(
+                        actividad["observaciones"]
+                    )
 
+            with col4:
+                if actividad["estado"] == "Pendiente":
+                    if st.button(
+                        "✅",
+                        key=f"complete_{actividad['id']}",
+                        help="Marcar como completada"
+                    ):
+                        cambiar_estado(
+                            actividad["id"],
+                            "Completada"
+                        )
+                        st.rerun()
+                else:
+                    if st.button(
+                        "↩️",
+                        key=f"pending_{actividad['id']}",
+                        help="Marcar como pendiente"
+                    ):
+                        cambiar_estado(
+                            actividad["id"],
+                            "Pendiente"
+                        )
+                        st.rerun()
 
-        st.divider()
+                if st.button(
+                    "🗑️",
+                    key=f"delete_{actividad['id']}",
+                    help="Eliminar actividad"
+                ):
+                    eliminar_actividad(
+                        actividad["id"]
+                    )
+                    st.rerun()
 
+            st.divider()
 
 else:
-
     st.info(
         "No hay actividades registradas."
     )
