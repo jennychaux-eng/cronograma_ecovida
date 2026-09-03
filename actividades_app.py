@@ -5,7 +5,7 @@ from collections import defaultdict
 
 
 # ============================================================
-# CONFIGURACIÓN GENERAL
+# CONFIGURACIÓN DE LA PÁGINA
 # ============================================================
 
 st.set_page_config(
@@ -37,17 +37,30 @@ st.markdown(
     """
     <style>
 
-    /* Fondo general */
+    /* =====================================================
+       CONFIGURACIÓN GENERAL
+       ===================================================== */
+
     .stApp {
-        background-color: #F7F9F8;
+        background-color: #F8FAFC;
     }
 
-    /* Título principal */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1400px;
+    }
+
+
+    /* =====================================================
+       ENCABEZADO
+       ===================================================== */
+
     .main-title {
         font-size: 38px;
         font-weight: 700;
         color: #1F2937;
-        margin-bottom: 5px;
+        margin-bottom: 4px;
     }
 
     .subtitle {
@@ -56,83 +69,169 @@ st.markdown(
         margin-bottom: 30px;
     }
 
-    /* Tarjetas del resumen */
+
+    /* =====================================================
+       TARJETAS DEL RESUMEN
+       ===================================================== */
+
     .metric-card {
-        background-color: white;
-        padding: 22px;
-        border-radius: 15px;
+        background-color: #FFFFFF;
+        padding: 22px 15px;
+        border-radius: 16px;
         border: 1px solid #E5E7EB;
         text-align: center;
-        box-shadow: 0px 2px 8px rgba(0,0,0,0.04);
+        min-height: 120px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .metric-title {
         color: #6B7280;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
     }
 
     .metric-value {
         color: #111827;
-        font-size: 32px;
+        font-size: 34px;
         font-weight: 700;
-        margin-top: 5px;
+        margin-top: 8px;
     }
 
-    /* Cronograma */
-    .student-card {
-        background-color: white;
-        border-radius: 15px;
+
+    /* =====================================================
+       SECCIÓN DE ESTUDIANTE
+       ===================================================== */
+
+    .student-section {
+        background-color: #FFFFFF;
+        border-radius: 18px;
         padding: 25px;
+        margin-bottom: 30px;
         border: 1px solid #E5E7EB;
-        margin-bottom: 25px;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
     }
 
-    .student-name {
-        font-size: 24px;
+    .student-title {
+        font-size: 25px;
         font-weight: 700;
         color: #1F2937;
         margin-bottom: 20px;
     }
 
-    .date-title {
-        font-size: 17px;
+
+    /* =====================================================
+       TARJETAS DE ACTIVIDADES
+       ===================================================== */
+
+    .schedule-card {
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 16px;
+        border-left: 6px solid;
+    }
+
+
+    /* ---------------- DANIELA ---------------- */
+
+    .daniela-card {
+        background-color: #DFF3FF;
+        border-left-color: #56B4E9;
+    }
+
+
+    /* ---------------- SALOME ---------------- */
+
+    .salome-card {
+        background-color: #FFE4EC;
+        border-left-color: #F28BA8;
+    }
+
+
+    /* ---------------- GABRIELA ---------------- */
+
+    .gabriela-card {
+        background-color: #FFF7CC;
+        border-left-color: #E8C547;
+    }
+
+
+    /* =====================================================
+       CONTENIDO DE TARJETAS
+       ===================================================== */
+
+    .schedule-date {
+        font-size: 18px;
         font-weight: 700;
-        color: #374151;
-        margin-top: 15px;
-        margin-bottom: 8px;
+        color: #1F2937;
+        margin-bottom: 13px;
     }
 
-    .activity-item {
+    .schedule-activity {
         font-size: 15px;
-        color: #4B5563;
-        margin-left: 10px;
-        margin-bottom: 4px;
+        color: #374151;
+        margin: 7px 0;
+        padding-left: 5px;
     }
 
-    .location {
-        color: #059669;
+    .schedule-location {
         font-size: 14px;
         font-weight: 600;
-        margin-top: 8px;
-        margin-bottom: 15px;
+        color: #374151;
+        margin-top: 16px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0,0,0,0.08);
     }
 
-    .completed {
-        color: #059669;
+    .schedule-observation {
+        font-size: 13px;
+        color: #6B7280;
+        margin-top: 9px;
+        font-style: italic;
     }
 
-    .pending {
-        color: #D97706;
+
+    /* =====================================================
+       BOTONES
+       ===================================================== */
+
+    .stButton > button {
+        border-radius: 9px;
+        font-weight: 600;
     }
 
-    /* Separador */
-    hr {
-        border: none;
-        border-top: 1px solid #E5E7EB;
-        margin: 25px 0;
+
+    /* =====================================================
+       FORMULARIO
+       ===================================================== */
+
+    .form-container {
+        background-color: #FFFFFF;
+        padding: 25px;
+        border-radius: 16px;
+        border: 1px solid #E5E7EB;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 768px) {
+
+        .main-title {
+            font-size: 30px;
+        }
+
+        .student-title {
+            font-size: 22px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+        }
+
     }
 
     </style>
@@ -142,15 +241,12 @@ st.markdown(
 
 
 # ============================================================
-# FUNCIONES
+# FUNCIONES DE SUPABASE
 # ============================================================
 
 def obtener_actividades():
-    """
-    Obtiene todas las actividades almacenadas en Supabase.
-    """
 
-    response = (
+    respuesta = (
         supabase
         .table("actividades")
         .select("*")
@@ -158,7 +254,7 @@ def obtener_actividades():
         .execute()
     )
 
-    return response.data
+    return respuesta.data
 
 
 def registrar_actividad(
@@ -168,9 +264,6 @@ def registrar_actividad(
     actividad,
     observaciones
 ):
-    """
-    Registra una nueva actividad.
-    """
 
     datos = {
         "estudiante": estudiante,
@@ -181,25 +274,29 @@ def registrar_actividad(
         "estado": "Pendiente"
     }
 
-    supabase.table("actividades").insert(datos).execute()
+    supabase \
+        .table("actividades") \
+        .insert(datos) \
+        .execute()
 
 
-def cambiar_estado(actividad_id, nuevo_estado):
-    """
-    Cambia el estado de una actividad.
-    """
+def cambiar_estado(
+    actividad_id,
+    nuevo_estado
+):
 
     supabase \
         .table("actividades") \
-        .update({"estado": nuevo_estado}) \
+        .update({
+            "estado": nuevo_estado
+        }) \
         .eq("id", actividad_id) \
         .execute()
 
 
-def eliminar_actividad(actividad_id):
-    """
-    Elimina una actividad.
-    """
+def eliminar_actividad(
+    actividad_id
+):
 
     supabase \
         .table("actividades") \
@@ -209,14 +306,14 @@ def eliminar_actividad(actividad_id):
 
 
 # ============================================================
-# CARGAR DATOS
+# CARGAR ACTIVIDADES
 # ============================================================
 
 try:
 
     actividades = obtener_actividades()
 
-except Exception as e:
+except Exception as error:
 
     st.error(
         "No fue posible conectarse con Supabase."
@@ -235,9 +332,11 @@ st.markdown(
 )
 
 st.markdown(
-    '<div class="subtitle">'
-    'Planificación y seguimiento de actividades de campo'
-    '</div>',
+    """
+    <div class="subtitle">
+        Planificación y seguimiento de actividades de campo
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
@@ -249,20 +348,35 @@ st.markdown(
 st.subheader("📊 Resumen")
 
 
+# Total de actividades
+
 total_actividades = len(actividades)
 
-pendientes = len([
-    a for a in actividades
-    if a["estado"] == "Pendiente"
-])
 
-completadas = len([
-    a for a in actividades
-    if a["estado"] == "Completada"
-])
+# Actividades pendientes
+
+actividades_pendientes = [
+    actividad
+    for actividad in actividades
+    if actividad["estado"] == "Pendiente"
+]
+
+pendientes = len(actividades_pendientes)
 
 
-# Próximas visitas = fechas futuras con actividades
+# Actividades completadas
+
+actividades_completadas = [
+    actividad
+    for actividad in actividades
+    if actividad["estado"] == "Completada"
+]
+
+completadas = len(actividades_completadas)
+
+
+# Próximas visitas
+
 hoy = date.today()
 
 fechas_futuras = set()
@@ -274,11 +388,19 @@ for actividad in actividades:
     )
 
     if fecha_actividad >= hoy:
-        fechas_futuras.add(fecha_actividad)
+
+        fechas_futuras.add(
+            fecha_actividad
+        )
+
+proximas_visitas = len(
+    fechas_futuras
+)
 
 
-proximas_visitas = len(fechas_futuras)
-
+# ============================================================
+# TARJETAS DEL RESUMEN
+# ============================================================
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -288,6 +410,7 @@ with col1:
     st.markdown(
         f"""
         <div class="metric-card">
+
             <div class="metric-title">
                 Actividades programadas
             </div>
@@ -295,6 +418,7 @@ with col1:
             <div class="metric-value">
                 {total_actividades}
             </div>
+
         </div>
         """,
         unsafe_allow_html=True
@@ -306,6 +430,7 @@ with col2:
     st.markdown(
         f"""
         <div class="metric-card">
+
             <div class="metric-title">
                 Actividades pendientes
             </div>
@@ -313,6 +438,7 @@ with col2:
             <div class="metric-value">
                 {pendientes}
             </div>
+
         </div>
         """,
         unsafe_allow_html=True
@@ -324,6 +450,7 @@ with col3:
     st.markdown(
         f"""
         <div class="metric-card">
+
             <div class="metric-title">
                 Actividades completadas
             </div>
@@ -331,6 +458,7 @@ with col3:
             <div class="metric-value">
                 {completadas}
             </div>
+
         </div>
         """,
         unsafe_allow_html=True
@@ -342,6 +470,7 @@ with col4:
     st.markdown(
         f"""
         <div class="metric-card">
+
             <div class="metric-title">
                 Próximas visitas
             </div>
@@ -349,6 +478,7 @@ with col4:
             <div class="metric-value">
                 {proximas_visitas}
             </div>
+
         </div>
         """,
         unsafe_allow_html=True
@@ -356,7 +486,7 @@ with col4:
 
 
 # ============================================================
-# CRONOGRAMA
+# CRONOGRAMA POR ESTUDIANTES
 # ============================================================
 
 st.divider()
@@ -373,107 +503,256 @@ estudiantes = [
 
 for estudiante in estudiantes:
 
+
+    # ========================================================
+    # COLOR DEL ESTUDIANTE
+    # ========================================================
+
+    if estudiante == "Daniela":
+
+        clase_color = "daniela-card"
+
+    elif estudiante == "Salome":
+
+        clase_color = "salome-card"
+
+    else:
+
+        clase_color = "gabriela-card"
+
+
+    # ========================================================
+    # CONTENEDOR DEL ESTUDIANTE
+    # ========================================================
+
     st.markdown(
         f"""
-        <div class="student-card">
+        <div class="student-section">
 
-            <div class="student-name">
+            <div class="student-title">
                 👤 {estudiante}
             </div>
-
         """,
         unsafe_allow_html=True
     )
 
+
+    # ========================================================
+    # ACTIVIDADES DEL ESTUDIANTE
+    # ========================================================
+
     actividades_estudiante = [
-        a for a in actividades
-        if a["estudiante"] == estudiante
+
+        actividad
+
+        for actividad in actividades
+
+        if actividad["estudiante"] == estudiante
+
     ]
 
-    # --------------------------------------------------------
-    # Si no tiene actividades
-    # --------------------------------------------------------
+
+    # ========================================================
+    # SIN ACTIVIDADES
+    # ========================================================
 
     if not actividades_estudiante:
 
         st.info(
-            "No hay actividades programadas."
+            "No hay actividades programadas para este estudiante."
         )
+
+
+    # ========================================================
+    # CON ACTIVIDADES
+    # ========================================================
 
     else:
 
-        # Agrupar actividades por fecha
+
+        # ----------------------------------------------------
+        # AGRUPAR ACTIVIDADES POR FECHA
+        # ----------------------------------------------------
+
         actividades_por_fecha = defaultdict(list)
+
 
         for actividad in actividades_estudiante:
 
             actividades_por_fecha[
                 actividad["fecha"]
-            ].append(actividad)
+            ].append(
+                actividad
+            )
 
 
         # ----------------------------------------------------
-        # Mostrar fechas
+        # MOSTRAR CADA FECHA
         # ----------------------------------------------------
 
-        for fecha_str in sorted(actividades_por_fecha):
+        for fecha_str in sorted(
+            actividades_por_fecha
+        ):
+
 
             fecha_obj = date.fromisoformat(
                 fecha_str
             )
 
-            fecha_formateada = fecha_obj.strftime(
-                "%d/%m/%Y"
+
+            # ------------------------------------------------
+            # NOMBRES DE LOS MESES
+            # ------------------------------------------------
+
+            meses = {
+
+                1: "enero",
+                2: "febrero",
+                3: "marzo",
+                4: "abril",
+                5: "mayo",
+                6: "junio",
+                7: "julio",
+                8: "agosto",
+                9: "septiembre",
+                10: "octubre",
+                11: "noviembre",
+                12: "diciembre"
+
+            }
+
+
+            fecha_formateada = (
+
+                f"{fecha_obj.day} de "
+                f"{meses[fecha_obj.month]} de "
+                f"{fecha_obj.year}"
+
             )
 
-            st.markdown(
-                f"""
-                <div class="date-title">
-                    📌 {fecha_formateada}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
             actividades_fecha = (
-                actividades_por_fecha[fecha_str]
+                actividades_por_fecha[
+                    fecha_str
+                ]
             )
 
-            predios = set()
+
+            # ------------------------------------------------
+            # OBTENER PREDIOS
+            # ------------------------------------------------
+
+            predios = list(
+                set(
+                    actividad["predio"]
+
+                    for actividad
+                    in actividades_fecha
+                )
+            )
+
+
+            predios_texto = " / ".join(
+                predios
+            )
+
+
+            # ------------------------------------------------
+            # LISTA DE ACTIVIDADES
+            # ------------------------------------------------
+
+            lista_actividades = ""
+
 
             for actividad in actividades_fecha:
 
-                predios.add(
-                    actividad["predio"]
-                )
 
-                estado = actividad["estado"]
+                if actividad["estado"] == "Completada":
 
-                if estado == "Completada":
                     icono = "✅"
+
                 else:
+
                     icono = "▫️"
 
-                st.markdown(
+
+                lista_actividades += (
+
                     f"""
-                    <div class="activity-item">
+                    <div class="schedule-activity">
                         {icono} {actividad["actividad"]}
                     </div>
-                    """,
-                    unsafe_allow_html=True
+                    """
+
                 )
 
-            # Mostrar predio
-            for predio in predios:
 
-                st.markdown(
+            # ------------------------------------------------
+            # OBSERVACIONES
+            # ------------------------------------------------
+
+            observaciones = []
+
+
+            for actividad in actividades_fecha:
+
+                if actividad.get(
+                    "observaciones"
+                ):
+
+                    observaciones.append(
+                        actividad["observaciones"]
+                    )
+
+
+            observaciones_html = ""
+
+
+            if observaciones:
+
+                observaciones_html = (
+
                     f"""
-                    <div class="location">
-                        📍 {predio}
+                    <div class="schedule-observation">
+                        📝 {" | ".join(observaciones)}
                     </div>
-                    """,
-                    unsafe_allow_html=True
+                    """
+
                 )
+
+
+            # ------------------------------------------------
+            # TARJETA DE FECHA
+            # ------------------------------------------------
+
+            st.markdown(
+
+                f"""
+                <div class="schedule-card {clase_color}">
+
+                    <div class="schedule-date">
+                        📅 {fecha_formateada}
+                    </div>
+
+                    {lista_actividades}
+
+                    <div class="schedule-location">
+                        📍 {predios_texto}
+                    </div>
+
+                    {observaciones_html}
+
+                </div>
+                """,
+
+                unsafe_allow_html=True
+
+            )
+
+
+    # ========================================================
+    # CERRAR CONTENEDOR DEL ESTUDIANTE
+    # ========================================================
 
     st.markdown(
         "</div>",
@@ -490,11 +769,21 @@ st.divider()
 st.subheader("➕ Registrar actividad")
 
 
-with st.form("formulario_actividad"):
+with st.form(
+    "formulario_actividad",
+    clear_on_submit=True
+):
+
 
     col1, col2 = st.columns(2)
 
+
+    # ========================================================
+    # COLUMNA 1
+    # ========================================================
+
     with col1:
+
 
         estudiante = st.selectbox(
             "Estudiante",
@@ -505,6 +794,7 @@ with st.form("formulario_actividad"):
             ]
         )
 
+
         predio = st.selectbox(
             "Predio",
             [
@@ -513,13 +803,19 @@ with st.form("formulario_actividad"):
             ]
         )
 
+
         fecha = st.date_input(
             "Fecha",
             value=date.today()
         )
 
 
+    # ========================================================
+    # COLUMNA 2
+    # ========================================================
+
     with col2:
+
 
         actividad = st.selectbox(
             "Actividad",
@@ -532,45 +828,65 @@ with st.form("formulario_actividad"):
             ]
         )
 
+
         observaciones = st.text_area(
             "Observaciones",
-            placeholder="Escriba observaciones relacionadas con la actividad..."
+            placeholder=(
+                "Escriba observaciones "
+                "relacionadas con la actividad..."
+            )
         )
 
 
+    # ========================================================
+    # BOTÓN
+    # ========================================================
+
     enviar = st.form_submit_button(
-        "Registrar actividad",
+        "➕ Registrar actividad",
         use_container_width=True
     )
 
 
     if enviar:
 
+
         try:
 
+
             registrar_actividad(
+
                 estudiante=estudiante,
+
                 predio=predio,
+
                 fecha=fecha,
+
                 actividad=actividad,
+
                 observaciones=observaciones
+
             )
 
+
             st.success(
-                "Actividad registrada correctamente."
+                "✅ Actividad registrada correctamente."
             )
+
 
             st.rerun()
 
-        except Exception as e:
+
+        except Exception as error:
+
 
             st.error(
-                f"No fue posible registrar la actividad: {e}"
+                f"No fue posible registrar la actividad: {error}"
             )
 
 
 # ============================================================
-# ADMINISTRACIÓN DE ACTIVIDADES
+# GESTIÓN DE ACTIVIDADES
 # ============================================================
 
 st.divider()
@@ -580,19 +896,36 @@ st.subheader("⚙️ Gestión de actividades")
 
 if actividades:
 
+
     for actividad in actividades:
+
+
+        # ====================================================
+        # FECHA
+        # ====================================================
 
         fecha_obj = date.fromisoformat(
             actividad["fecha"]
         )
 
+
         fecha_formateada = fecha_obj.strftime(
             "%d/%m/%Y"
         )
 
+
+        # ====================================================
+        # COLUMNAS
+        # ====================================================
+
         col1, col2, col3, col4 = st.columns(
             [2, 2, 3, 1]
         )
+
+
+        # ====================================================
+        # ESTUDIANTE
+        # ====================================================
 
         with col1:
 
@@ -604,11 +937,21 @@ if actividades:
                 fecha_formateada
             )
 
+
+        # ====================================================
+        # PREDIO
+        # ====================================================
+
         with col2:
 
             st.write(
                 f"📍 {actividad['predio']}"
             )
+
+
+        # ====================================================
+        # ACTIVIDAD
+        # ====================================================
 
         with col3:
 
@@ -616,59 +959,104 @@ if actividades:
                 actividad["actividad"]
             )
 
-            if actividad["observaciones"]:
+
+            if actividad.get(
+                "observaciones"
+            ):
 
                 st.caption(
                     actividad["observaciones"]
                 )
 
 
+        # ====================================================
+        # ACCIONES
+        # ====================================================
+
         with col4:
+
+
+            # -----------------------------------------------
+            # CAMBIAR ESTADO
+            # -----------------------------------------------
 
             if actividad["estado"] == "Pendiente":
 
+
                 if st.button(
+
                     "✅",
+
                     key=f"complete_{actividad['id']}",
+
                     help="Marcar como completada"
+
                 ):
 
+
                     cambiar_estado(
+
                         actividad["id"],
+
                         "Completada"
+
                     )
 
+
                     st.rerun()
+
 
             else:
 
+
                 if st.button(
+
                     "↩️",
+
                     key=f"pending_{actividad['id']}",
+
                     help="Marcar como pendiente"
+
                 ):
 
+
                     cambiar_estado(
+
                         actividad["id"],
+
                         "Pendiente"
+
                     )
+
 
                     st.rerun()
 
 
+            # -----------------------------------------------
+            # ELIMINAR
+            # -----------------------------------------------
+
             if st.button(
+
                 "🗑️",
+
                 key=f"delete_{actividad['id']}",
+
                 help="Eliminar actividad"
+
             ):
+
 
                 eliminar_actividad(
                     actividad["id"]
                 )
 
+
                 st.rerun()
 
+
         st.divider()
+
 
 else:
 
