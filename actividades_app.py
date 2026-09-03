@@ -173,7 +173,7 @@ st.markdown(
 
     /* ---------------- SALOME ---------------- */
 
-    .salomé-card {
+    .salome-card {
         background-color: #FFE4EC;
         border-left-color: #F28BA8;
     }
@@ -457,8 +457,7 @@ st.subheader("📅 Cronograma por estudiantes")
 
 estudiantes = [
     "Daniela",
-    "Salomé
-    ",
+    "Salomé",
     "Gabriela"
 ]
 
@@ -476,7 +475,7 @@ for estudiante in estudiantes:
 
     elif estudiante == "Salomé":
 
-        clase_color = "salomé-card"
+        clase_color = "salome-card"
 
     else:
 
