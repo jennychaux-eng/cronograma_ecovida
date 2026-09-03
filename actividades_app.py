@@ -143,11 +143,23 @@ st.markdown(
        TARJETAS DE ACTIVIDADES
        ===================================================== */
 
+    .student-schedule-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
     .schedule-card {
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 16px;
+        border-radius: 18px;
+        padding: 1rem;
         border-left: 6px solid;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: hidden;
+        box-sizing: border-box;
     }
 
 
@@ -180,33 +192,36 @@ st.markdown(
        ===================================================== */
 
     .schedule-date {
-        font-size: 18px;
+        font-size: 17px;
         font-weight: 700;
         color: #1F2937;
-        margin-bottom: 13px;
+        margin-bottom: 10px;
+        line-height: 1.3;
     }
 
     .schedule-activity {
-        font-size: 15px;
+        font-size: 14px;
         color: #374151;
-        margin: 7px 0;
-        padding-left: 5px;
+        margin: 4px 0;
+        padding-left: 4px;
+        line-height: 1.3;
     }
 
     .schedule-location {
-        font-size: 14px;
-        font-weight: 600;
+        font-size: 13px;
+        font-weight: 700;
         color: #374151;
-        margin-top: 16px;
+        margin-top: auto;
         padding-top: 10px;
         border-top: 1px solid rgba(0,0,0,0.08);
     }
 
     .schedule-observation {
-        font-size: 13px;
+        font-size: 12px;
         color: #6B7280;
-        margin-top: 9px;
+        margin-top: 8px;
         font-style: italic;
+        line-height: 1.4;
     }
 
 
@@ -236,6 +251,12 @@ st.markdown(
        RESPONSIVE
        ===================================================== */
 
+    @media (max-width: 1100px) {
+        .student-schedule-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
     @media (max-width: 768px) {
 
         .main-title {
@@ -248,6 +269,10 @@ st.markdown(
 
         .metric-value {
             font-size: 28px;
+        }
+
+        .student-schedule-grid {
+            grid-template-columns: 1fr;
         }
 
     }
@@ -554,22 +579,18 @@ for estudiante in estudiantes:
 
 
         # ----------------------------------------------------
-        # MOSTRAR CADA FECHA
+        # MOSTRAR CADA FECHA EN CUADROS CUADRADOS
         # ----------------------------------------------------
+
+        cards_html = ""
 
         for fecha_str in sorted(
             actividades_por_fecha
         ):
 
-
             fecha_obj = date.fromisoformat(
                 fecha_str
             )
-
-
-            # ------------------------------------------------
-            # NOMBRES DE LOS MESES
-            # ------------------------------------------------
 
             meses = {
 
@@ -588,15 +609,11 @@ for estudiante in estudiantes:
 
             }
 
-
             fecha_formateada = (
-
                 f"{fecha_obj.day} de "
                 f"{meses[fecha_obj.month]} de "
                 f"{fecha_obj.year}"
-
             )
-
 
             actividades_fecha = (
                 actividades_por_fecha[
@@ -604,91 +621,52 @@ for estudiante in estudiantes:
                 ]
             )
 
-
-            # ------------------------------------------------
-            # OBTENER PREDIOS
-            # ------------------------------------------------
-
             predios = list(
                 set(
                     actividad["predio"]
-
-                    for actividad
-                    in actividades_fecha
+                    for actividad in actividades_fecha
                 )
             )
+            predios_texto = " / ".join(predios)
 
-
-            predios_texto = " / ".join(
-                predios
-            )
-
-
-            # ------------------------------------------------
-            # TARJETA DE FECHA
-            # ------------------------------------------------
-
-            st.markdown(
-                f"""
-                <div class="schedule-card {clase_color}">
-                    <div class="schedule-date">
-                        📅 {fecha_formateada}
-                    </div>
-                """,
-                unsafe_allow_html=True
-            )
-
+            lista_actividades = ""
 
             for actividad in actividades_fecha:
-
                 if actividad["estado"] == "Completada":
                     icono = "✅"
                 else:
                     icono = "▫️"
 
-                st.markdown(
-                    f"""
-                    <div class="schedule-activity">
-                        {icono} {actividad["actividad"]}
-                    </div>
-                    """,
-                    unsafe_allow_html=True
+                lista_actividades += (
+                    f'<div class="schedule-activity">{icono} {actividad["actividad"]}</div>'
                 )
 
-
-            st.markdown(
-                f"""
-                <div class="schedule-location">
-                    📍 {predios_texto}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-
             observaciones = []
-
             for actividad in actividades_fecha:
-
                 if actividad.get("observaciones"):
                     observaciones.append(actividad["observaciones"])
 
+            observaciones_html = ""
             if observaciones:
-
-                st.markdown(
-                    f"""
-                    <div class="schedule-observation">
-                        📝 {" | ".join(observaciones)}
-                    </div>
-                    """,
-                    unsafe_allow_html=True
+                observaciones_html = (
+                    f'<div class="schedule-observation">📝 {" | ".join(observaciones)}</div>'
                 )
 
-
-            st.markdown(
-                "</div>",
-                unsafe_allow_html=True
+            cards_html += (
+                f"""
+                <div class="schedule-card {clase_color}">
+                    <div class="schedule-date">📅 {fecha_formateada}</div>
+                    {lista_actividades}
+                    <div class="schedule-location">📍 {predios_texto}</div>
+                    {observaciones_html}
+                </div>
+                """
             )
+
+        st.markdown(
+            f'<div class="student-schedule-grid">{cards_html}</div>',
+            unsafe_allow_html=True
+        )
 
 
     # ========================================================
