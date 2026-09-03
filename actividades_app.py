@@ -370,7 +370,7 @@ except Exception as error:
 # ============================================================
 
 st.markdown(
-    '<div class="main-title">🌱 CRONOGRAMA DE ACTIVIDADES </div>',
+    '<div class="main-title"> 🌳CRONOGRAMA DE ACTIVIDADES </div>',
     unsafe_allow_html=True
 )
 
