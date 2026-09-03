@@ -8,7 +8,7 @@ from collections import defaultdict
 # ============================================================
 
 st.set_page_config(
-    page_title="Cronograma de Campo",
+    page_title="🌱 CRONOGRAMA DE ACTIVIDADES",
     page_icon="🌱",
     layout="wide",
     initial_sidebar_state="collapsed"
