@@ -173,7 +173,7 @@ st.markdown(
 
     /* ---------------- SALOME ---------------- */
 
-    .salome-card {
+    .salomé-card {
         background-color: #FFE4EC;
         border-left-color: #F28BA8;
     }
@@ -457,7 +457,8 @@ st.subheader("📅 Cronograma por estudiantes")
 
 estudiantes = [
     "Daniela",
-    "Salome",
+    "Salomé
+    ",
     "Gabriela"
 ]
 
@@ -473,9 +474,9 @@ for estudiante in estudiantes:
 
         clase_color = "daniela-card"
 
-    elif estudiante == "Salome":
+    elif estudiante == "Salomé":
 
-        clase_color = "salome-card"
+        clase_color = "salomé-card"
 
     else:
 
@@ -593,7 +594,7 @@ for estudiante in estudiantes:
 
                     color_style = {
                         "Daniela": "background-color: #DFF3FF; border: 1px solid #B7E3F9; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
-                        "Salome": "background-color: #FFE4EC; border: 1px solid #F6C2D4; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
+                        "Salomé": "background-color: #FFE4EC; border: 1px solid #F6C2D4; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
                         "Gabriela": "background-color: #FFF7CC; border: 1px solid #F2E39F; border-radius: 16px; padding: 16px; margin-bottom: 12px;",
                     }[estudiante]
 
@@ -656,7 +657,7 @@ with st.form(
             "Estudiante",
             [
                 "Daniela",
-                "Salome",
+                "Salomé",
                 "Gabriela"
             ]
         )
@@ -759,7 +760,7 @@ if actividades:
 
     estudiante_seleccionado = st.selectbox(
         "Selecciona estudiante",
-        ["Daniela", "Salome", "Gabriela"],
+        ["Daniela", "Salomé", "Gabriela"],
         index=0
     )
 
