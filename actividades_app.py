@@ -3,7 +3,6 @@ from supabase import create_client, Client
 from datetime import date
 from collections import defaultdict
 
-
 # ============================================================
 # CONFIGURACIÓN DE LA PÁGINA
 # ============================================================
@@ -606,95 +605,69 @@ for estudiante in estudiantes:
 
 
             # ------------------------------------------------
-            # LISTA DE ACTIVIDADES
-            # ------------------------------------------------
-
-            lista_actividades = ""
-
-
-            for actividad in actividades_fecha:
-
-
-                if actividad["estado"] == "Completada":
-
-                    icono = "✅"
-
-                else:
-
-                    icono = "▫️"
-
-
-                lista_actividades += (
-
-                    f"""
-                    <div class="schedule-activity">
-                        {icono} {actividad["actividad"]}
-                    </div>
-                    """
-
-                )
-
-
-            # ------------------------------------------------
-            # OBSERVACIONES
-            # ------------------------------------------------
-
-            observaciones = []
-
-
-            for actividad in actividades_fecha:
-
-                if actividad.get(
-                    "observaciones"
-                ):
-
-                    observaciones.append(
-                        actividad["observaciones"]
-                    )
-
-
-            observaciones_html = ""
-
-
-            if observaciones:
-
-                observaciones_html = (
-
-                    f"""
-                    <div class="schedule-observation">
-                        📝 {" | ".join(observaciones)}
-                    </div>
-                    """
-
-                )
-
-
-            # ------------------------------------------------
             # TARJETA DE FECHA
             # ------------------------------------------------
 
             st.markdown(
-
                 f"""
                 <div class="schedule-card {clase_color}">
-
                     <div class="schedule-date">
                         📅 {fecha_formateada}
                     </div>
+                """,
+                unsafe_allow_html=True
+            )
 
-                    {lista_actividades}
 
-                    <div class="schedule-location">
-                        📍 {predios_texto}
+            for actividad in actividades_fecha:
+
+                if actividad["estado"] == "Completada":
+                    icono = "✅"
+                else:
+                    icono = "▫️"
+
+                st.markdown(
+                    f"""
+                    <div class="schedule-activity">
+                        {icono} {actividad["actividad"]}
                     </div>
+                    """,
+                    unsafe_allow_html=True
+                )
 
-                    {observaciones_html}
 
+            st.markdown(
+                f"""
+                <div class="schedule-location">
+                    📍 {predios_texto}
                 </div>
                 """,
-
                 unsafe_allow_html=True
+            )
 
+
+            observaciones = []
+
+            for actividad in actividades_fecha:
+
+                if actividad.get("observaciones"):
+                    observaciones.append(actividad["observaciones"])
+
+            if observaciones:
+
+                st.markdown(
+                    f"""
+                    <div class="schedule-observation">
+                        📝 {" | ".join(observaciones)}
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+
+            st.markdown(
+                "</div>",
+                unsafe_allow_html=True
             )
 
 
