@@ -569,94 +569,78 @@ for estudiante in estudiantes:
 
 
         # ----------------------------------------------------
-        # MOSTRAR CADA FECHA EN CUADROS CUADRADOS
+        # MOSTRAR CADA FECHA EN COLUMNAS NATIVAS
         # ----------------------------------------------------
 
-        cards_html = ""
-
-        for fecha_str in sorted(
+        fechas_ordenadas = sorted(
             actividades_por_fecha
-        ):
-
-            fecha_obj = date.fromisoformat(
-                fecha_str
-            )
-
-            meses = {
-
-                1: "enero",
-                2: "febrero",
-                3: "marzo",
-                4: "abril",
-                5: "mayo",
-                6: "junio",
-                7: "julio",
-                8: "agosto",
-                9: "septiembre",
-                10: "octubre",
-                11: "noviembre",
-                12: "diciembre"
-
-            }
-
-            fecha_formateada = (
-                f"{fecha_obj.day} de "
-                f"{meses[fecha_obj.month]} de "
-                f"{fecha_obj.year}"
-            )
-
-            actividades_fecha = (
-                actividades_por_fecha[
-                    fecha_str
-                ]
-            )
-
-            predios = list(
-                set(
-                    actividad["predio"]
-                    for actividad in actividades_fecha
-                )
-            )
-            predios_texto = " / ".join(predios)
-
-            lista_actividades = ""
-
-            for actividad in actividades_fecha:
-                if actividad["estado"] == "Completada":
-                    icono = "✅"
-                else:
-                    icono = "▫️"
-
-                lista_actividades += (
-                    f'<div class="schedule-activity">{icono} {actividad["actividad"]}</div>'
-                )
-
-            observaciones = []
-            for actividad in actividades_fecha:
-                if actividad.get("observaciones"):
-                    observaciones.append(actividad["observaciones"])
-
-            observaciones_html = ""
-            if observaciones:
-                observaciones_html = (
-                    f'<div class="schedule-observation">📝 {" | ".join(observaciones)}</div>'
-                )
-
-            cards_html += (
-                f"""
-                <div class="schedule-card {clase_color}">
-                    <div class="schedule-date">📅 {fecha_formateada}</div>
-                    {lista_actividades}
-                    <div class="schedule-location">📍 {predios_texto}</div>
-                    {observaciones_html}
-                </div>
-                """
-            )
-
-        st.markdown(
-            f'<div class="student-schedule-grid">{cards_html}</div>',
-            unsafe_allow_html=True
         )
+
+        for indice in range(0, len(fechas_ordenadas), 4):
+
+            columnas = st.columns(4)
+
+            for posicion in range(4):
+
+                if indice + posicion >= len(fechas_ordenadas):
+                    break
+
+                fecha_str = fechas_ordenadas[indice + posicion]
+                fecha_obj = date.fromisoformat(fecha_str)
+
+                meses = {
+                    1: "enero",
+                    2: "febrero",
+                    3: "marzo",
+                    4: "abril",
+                    5: "mayo",
+                    6: "junio",
+                    7: "julio",
+                    8: "agosto",
+                    9: "septiembre",
+                    10: "octubre",
+                    11: "noviembre",
+                    12: "diciembre"
+                }
+
+                fecha_formateada = (
+                    f"{fecha_obj.day} de "
+                    f"{meses[fecha_obj.month]} de "
+                    f"{fecha_obj.year}"
+                )
+
+                actividades_fecha = actividades_por_fecha[fecha_str]
+
+                predios = list(
+                    set(
+                        actividad["predio"]
+                        for actividad in actividades_fecha
+                    )
+                )
+                predios_texto = " / ".join(predios)
+
+                with columnas[posicion]:
+
+                    st.markdown(
+                        f"**📅 {fecha_formateada}**"
+                    )
+
+                    for actividad in actividades_fecha:
+                        icono = "✅" if actividad["estado"] == "Completada" else "▫️"
+                        st.write(f"{icono} {actividad['actividad']}")
+
+                    st.write(f"📍 {predios_texto}")
+
+                    observaciones = [
+                        actividad["observaciones"]
+                        for actividad in actividades_fecha
+                        if actividad.get("observaciones")
+                    ]
+
+                    if observaciones:
+                        st.caption(f"📝 {' | '.join(observaciones)}")
+
+                    st.markdown("---")
 
 
 # ============================================================
