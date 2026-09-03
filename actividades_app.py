@@ -404,84 +404,32 @@ proximas_visitas = len(
 
 col1, col2, col3, col4 = st.columns(4)
 
-
 with col1:
-
-    st.markdown(
-        f"""
-        <div class="metric-card">
-
-            <div class="metric-title">
-                Actividades programadas
-            </div>
-
-            <div class="metric-value">
-                {total_actividades}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.metric(
+        label="Actividades programadas",
+        value=total_actividades,
+        delta="Total"
     )
-
 
 with col2:
-
-    st.markdown(
-        f"""
-        <div class="metric-card">
-
-            <div class="metric-title">
-                Actividades pendientes
-            </div>
-
-            <div class="metric-value">
-                {pendientes}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.metric(
+        label="Actividades pendientes",
+        value=pendientes,
+        delta="Por atender"
     )
-
 
 with col3:
-
-    st.markdown(
-        f"""
-        <div class="metric-card">
-
-            <div class="metric-title">
-                Actividades completadas
-            </div>
-
-            <div class="metric-value">
-                {completadas}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.metric(
+        label="Actividades completadas",
+        value=completadas,
+        delta="OK"
     )
 
-
 with col4:
-
-    st.markdown(
-        f"""
-        <div class="metric-card">
-
-            <div class="metric-title">
-                Próximas visitas
-            </div>
-
-            <div class="metric-value">
-                {proximas_visitas}
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    st.metric(
+        label="Próximas visitas",
+        value=proximas_visitas,
+        delta="Desde hoy"
     )
 
 
