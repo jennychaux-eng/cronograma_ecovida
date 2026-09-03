@@ -516,16 +516,7 @@ for estudiante in estudiantes:
     # CONTENEDOR DEL ESTUDIANTE
     # ========================================================
 
-    st.markdown(
-        f"""
-        <div class="student-section">
-
-            <div class="student-title">
-                👤 {estudiante}
-            </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown(f"### 👤 {estudiante}")
 
 
     # ========================================================
