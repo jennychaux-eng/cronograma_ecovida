@@ -471,7 +471,7 @@ with col3:
 
 st.divider()
 
-st.subheader("📅 Cronograma por estudiantes")
+st.subheader("📅 Plan de trabajo por estudiante")
 
 
 estudiantes = [
