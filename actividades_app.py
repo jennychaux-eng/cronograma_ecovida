@@ -305,7 +305,7 @@ def registrar_actividad(
     predio,
     fecha,
     actividad,
-    observaciones
+    materiales
 ):
 
     datos = {
@@ -313,7 +313,7 @@ def registrar_actividad(
         "predio": predio,
         "fecha": str(fecha),
         "actividad": actividad,
-        "observaciones": observaciones,
+        "materiales": materiales,
         "estado": "Pendiente"
     }
 
@@ -627,17 +627,17 @@ for estudiante in estudiantes:
                         for actividad in actividades_fecha
                     )
 
-                    observaciones = [
-                        actividad["observaciones"]
+                    materiales = [
+                        actividad["materiales"]
                         for actividad in actividades_fecha
-                        if actividad.get("observaciones")
+                        if actividad.get("materiales")
                     ]
 
-                    observaciones_html = ""
-                    if observaciones:
-                        observaciones_html = (
+                    materiales_html = ""
+                    if materiales:
+                        materiales_html = (
                             "<div style='margin-top: 8px; color: #6B7280; font-size: 12px; font-style: italic;'>"
-                            f"📝 {' | '.join(observaciones)}"
+                            f"🧰 {' | '.join(materiales)}"
                             "</div>"
                         )
 
@@ -646,7 +646,7 @@ for estudiante in estudiantes:
                         f"<div><strong>📅 {fecha_formateada}</strong></div>"
                         f"<div style='margin-top: 10px;'>{actividades_html}</div>"
                         f"<div style='margin-top: 12px;'><strong>📍</strong> {predios_texto}</div>"
-                        f"{observaciones_html}"
+                        f"{materiales_html}"
                         "</div>",
                         unsafe_allow_html=True,
                     )
@@ -717,11 +717,11 @@ with st.form(
         )
 
 
-        observaciones = st.text_area(
-            "Observaciones",
+        materiales = st.text_area(
+            "Materiales",
             placeholder=(
-                "Escriba observaciones "
-                "relacionadas con la actividad..."
+                "Escriba los materiales "
+                "necesarios para la actividad..."
             )
         )
 
@@ -752,7 +752,7 @@ with st.form(
 
                 actividad=actividad,
 
-                observaciones=observaciones
+                materiales=materiales
 
             )
 
@@ -832,9 +832,9 @@ if actividades:
                     actividad["actividad"]
                 )
 
-                if actividad.get("observaciones"):
+                if actividad.get("materiales"):
                     st.caption(
-                        actividad["observaciones"]
+                        actividad["materiales"]
                     )
 
             with col4:
