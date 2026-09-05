@@ -377,6 +377,10 @@ header_content, header_logo = st.columns([5, 1])
 
 with header_content:
     st.markdown(
+        "<div style='height: 38px;'></div>",
+        unsafe_allow_html=True
+    )
+    st.markdown(
         '<div class="main-title"> 🌳CRONOGRAMA DE ACTIVIDADES </div>',
         unsafe_allow_html=True
     )
