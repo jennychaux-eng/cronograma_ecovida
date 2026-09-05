@@ -392,7 +392,11 @@ with header_content:
 
 with header_logo:
     if logo_path.exists():
-        st.image(str(logo_path), width=150)
+        st.markdown(
+            "<div style='height: 38px;'></div>",
+            unsafe_allow_html=True
+        )
+        st.image(str(logo_path), width=180)
 
 
 # ============================================================
