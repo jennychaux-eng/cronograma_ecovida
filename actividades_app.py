@@ -691,7 +691,9 @@ with st.form(
             "Predio",
             [
                 "Lomas de Dapa",
-                "Horizontes"
+                "Horizontes",
+                "Andes",
+                "La Cabuyera"
             ]
         )
 
