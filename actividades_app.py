@@ -2,6 +2,7 @@ import streamlit as st
 from supabase import create_client, Client
 from datetime import date
 from collections import defaultdict
+from pathlib import Path
 
 # ============================================================
 # CONFIGURACIÓN DE LA PÁGINA
@@ -368,19 +369,30 @@ except Exception as error:
 # ENCABEZADO
 # ============================================================
 
-st.markdown(
-    '<div class="main-title"> 🌳CRONOGRAMA DE ACTIVIDADES </div>',
-    unsafe_allow_html=True
-)
+logo_path = Path(__file__).parent / "images" / "ecovida_logo.png"
+if not logo_path.exists():
+    logo_path = Path(__file__).parent / "ecovida_logo.png"
 
-st.markdown(
-    """
-    <div class="subtitle">
-        Planificación y seguimiento de actividades de campo
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+header_content, header_logo = st.columns([5, 1])
+
+with header_content:
+    st.markdown(
+        '<div class="main-title"> 🌳CRONOGRAMA DE ACTIVIDADES </div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        """
+        <div class="subtitle">
+            Planificación y seguimiento de actividades de campo
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with header_logo:
+    if logo_path.exists():
+        st.image(str(logo_path), width=150)
 
 
 # ============================================================
